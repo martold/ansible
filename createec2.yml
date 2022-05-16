@@ -26,7 +26,7 @@
     - name: Get the created EC2 Instance
       ec2_instance_facts:
         filters:
-          "tag:Name": Wireguard Server
+          "tag:Name": "{{ aws_ec2_name }}"
       register: ec2info
 
     - debug: var=ec2info.instances[0].public_dns_name
