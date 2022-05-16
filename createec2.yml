@@ -5,9 +5,6 @@
     path: '{{ playbook_dir }}/vars/vars.yml'
 
   tasks:
-    - name: Include vars
-      include_vars:
-        file: '{{ playbook_dir }}/vars/vars.yml'
 
     - name: Create EC2 Instance
       amazon.aws.ec2_instance:
