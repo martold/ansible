@@ -1,0 +1,35 @@
+---
+- name: Create EC2 Instance
+  hosts: localhost
+  vars:
+    path: '{{ playbook_dir }}/vars/vars.yml'
+
+  tasks:
+    - name: Include vars
+      include_vars:
+        file: '{{ playbook_dir }}/vars/vars.yml'
+
+    - name: Create EC2 Instance
+      amazon.aws.ec2_instance:
+        name: "{{ aws_ec2_name }}"
+        aws_access_key: "{{ aws_key_id }}"
+        aws_secret_key: "{{ aws_secret_id }}"
+        key_name: "{{ aws_ssh_key_pair }}"
+        instance_type: "{{ aws_instance_type }}"
+        security_group: "{{ aws_security_group }}"
+        region: "{{ aws_region }}"
+        network:
+          assign_public_ip: true
+        image_id: "{{ aws_es2_image }}"
+        cpu_credit_specification: standard
+        cpu_options:
+          core_count: 1
+          threads_per_core: 2
+
+    - name: Get the created EC2 Instance
+      ec2_instance_facts:
+        filters:
+          "tag:Name": Wireguard Server
+      register: ec2info
+
+    - debug: var=ec2info.instances[0].public_dns_name

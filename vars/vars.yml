@@ -1,0 +1,8 @@
+aws_key_id: {{ aws_key_id }}
+aws_secret_id: {{ aws_secret_id }}
+aws_region: eu-north-1
+aws_security_group: VPN server
+aws_es2_image: ami-092cce4a19b438926
+aws_instance_type: t3.micro
+aws_ssh_key_pair: VPN
+aws_ec2_name: Wireguard Server
